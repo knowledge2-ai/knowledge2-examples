@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import os
+import sys
 
 from sdk import (
     AuthenticationError,
@@ -23,6 +24,11 @@ try:
         api_key=api_key,
         max_retries=3,
     )
+
+    # Pre-flight check
+    if not client.is_authenticated():
+        print("No credentials configured!")
+        sys.exit(1)
 
     corpus_id = os.environ.get("K2_CORPUS_ID", "corpus-123")
 
